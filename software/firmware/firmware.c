@@ -21,7 +21,7 @@ int main()
 
   uart_txwait();
 
-  uart_printf("\nExectution time: %d clocks in %dus @%dMHz\n\n", (unsigned int)elapsed, elapsedu, FREQ/1000000);
+  uart_printf("\nExecution time: %d clocks in %dus @%dMHz\n\n", (unsigned int)elapsed, elapsedu, FREQ/1000000);
 
   uart_txwait();
   return 0;
