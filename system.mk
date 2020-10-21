@@ -118,9 +118,9 @@ DEFINE+=$(defmacro)RUN_DDR
 endif
 endif
 ifeq ($(INIT_MEM),1)
-DEFINE+=$(defmacro)INIT_MEM 
+DEFINE+=$(defmacro)INIT_MEM
 endif
-DEFINE+=$(defmacro)N_SLAVES=$(N_SLAVES) 
+DEFINE+=$(defmacro)N_SLAVES=$(N_SLAVES)
 
 #address selection bits
 E:=31 #extra memory bit
@@ -149,7 +149,7 @@ endif
 
 DEFINE+=$(defmacro)BAUD=$(BAUD)
 
-ifeq ($(FREQ),) 
+ifeq ($(FREQ),)
 DEFINE+=$(defmacro)FREQ=100000000
 else
 DEFINE+=$(defmacro)FREQ=$(FREQ)
@@ -159,8 +159,8 @@ endif
 all: usage
 
 usage:
-	@echo "INFO: Top target must me defined so that target \"run\" can be found" 
-	@echo "      For example, \"make sim INIT_MEM=0\"." 
+	@echo "INFO: Top target must me defined so that target \"run\" can be found"
+	@echo "      For example, \"make sim INIT_MEM=0\"."
 	@echo "Usage: make target [parameters]"
 
 #create periph indices and directories
