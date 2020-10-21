@@ -8,7 +8,7 @@ int main()
 {
   unsigned long long elapsed;
   unsigned int elapsedu;
-
+  timer_init(TIMER_BASE);
   //read current timer count, compute elapsed time
   elapsed = timer_get_count(TIMER_BASE);
   elapsedu = timer_time_us(TIMER_BASE);
