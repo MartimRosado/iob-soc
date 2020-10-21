@@ -1,7 +1,7 @@
 include ../../system.mk
 
 
-INTEL = 1
+INTEL = 0
 XILINX = 1
 
 run: pb.pdf
