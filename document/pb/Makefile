@@ -1,7 +1,7 @@
 include ../../system.mk
 
 
-INTEL = 1
+INTEL = 0
 XILINX = 1
 
 run: pb.pdf
@@ -20,4 +20,4 @@ clean:
 pdfclean: clean
 	@rm -f *.pdf
 
-.PHONY: clean pdfclean
+.PHONY: run clean pdfclean
