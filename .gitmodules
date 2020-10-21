@@ -4,6 +4,3 @@
 [submodule "submodules/CPU"]
 	path = submodules/CPU
 	url = git@github.com:IObundle/iob-picorv32.git
-[submodule "iob-cache"]
-	path = iob-cache
-	url = git@github.com:IObundle/iob-cache.git
