@@ -52,17 +52,17 @@ BOARD_LIST="BOARD=CYCLONEV-GT-DK" "BOARD=AES-KU040-DB-G"
 
 ifeq ($(BOARD),AES-KU040-DB-G)
 	FPGA_USER=$(USER)
-	FPGA_SERVER=pudim-flan.iobundle.com
+	FPGA_SERVER=localhost
 	FPGA_OBJ=synth_system.bit
 	BOARD_USER=$(USER)
-	BOARD_SERVER=baba-de-camelo.iobundle.com
+	BOARD_SERVER=localhost
 else
 #default
 	BOARD=CYCLONEV-GT-DK
-	FPGA_SERVER=pudim-flan.iobundle.com
+	FPGA_SERVER=localhost
 	FPGA_USER=$(USER)
 	FPGA_OBJ=output_files/top_system.sof
-	BOARD_SERVER=pudim-flan.iobundle.com
+	BOARD_SERVER=localhost
 	BOARD_USER=$(USER)
 endif
 
