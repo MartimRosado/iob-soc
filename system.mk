@@ -57,6 +57,7 @@ ifeq ($(BOARD),AES-KU040-DB-G)
 	BOARD_USER=$(USER)
 	BOARD_SERVER=localhost
 
+else ifeq ($(BOARD),BASYS3)
 else
 #default
 	BOARD=CYCLONEV-GT-DK
