@@ -7,8 +7,7 @@ load:
 	./prog.sh
 
 compile: firmware $(COMPILE_OBJ)
-
-$(COMPILE_OBJ): $(wildcard *.sdc) $(VSRC) $(VHDR) boot.hex
+	$(COMPILE_OBJ): $(wildcard *.sdc) $(VSRC) $(VHDR) boot.hex
 	./build.sh "$(INCLUDE)" "$(DEFINE)" "$(VSRC)"
 
 .PRECIOUS: $(COMPILE_OBJ)
