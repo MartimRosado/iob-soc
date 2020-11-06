@@ -49,11 +49,11 @@ endif
 # FPGA COMPILE
 #
 
-fpga: system.mk
-	make -C $(FIRM_DIR) run BAUD=$(HW_BAUD)
-	make -C $(BOOT_DIR) run BAUD=$(HW_BAUD)
-ifeq ($(BOARD),$(filter $(BOARD), $(LOCAL_FPGA_LIST)))
-	make -C $(BOARD_DIR) compile BAUD=$(HW_BAUD)
+fpga: firmware bootloader
+	@echo $(BOARD)
+ifeq ($(BOARD),$(filter $(BOARD), $(LOCAL_COMPILER_LIST)))
+	make -C $(FPGA_DIR) system.v
+	make -C $(FPGA_DIR) compile INIT_MEM=$(INIT_MEM) USE_DDR=$(USE_DDR) RUN_DDR=$(RUN_DDR)
 else
 	ssh $(FPGA_USER)@$(FPGA_SERVER) 'if [ ! -d $(REMOTE_ROOT_DIR) ]; then mkdir -p $(REMOTE_ROOT_DIR); fi'
 	rsync -avz --exclude .git $(ROOT_DIR) $(FPGA_USER)@$(FPGA_SERVER):$(REMOTE_ROOT_DIR)
