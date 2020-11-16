@@ -1,0 +1,703 @@
+#-----------------------------------------------------------
+# Vivado v2020.1 (64-bit)
+# SW Build 2902540 on Wed May 27 19:54:35 MDT 2020
+# IP Build 2902112 on Wed May 27 22:43:36 MDT 2020
+# Start of session at: Thu Oct 22 20:38:41 2020
+# Process ID: 3855
+# Current directory: /home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3
+# Command line: vivado -nojournal -log vivado.log -mode batch -source synth_system.tcl -tclargs  ../../../submodules/CACHE/submodules/iob-interconnect/hardware/include . ../../../hardware/include  ../../../submodules/UART/hardware/include  ../../../submodules/TIMER/hardware/include  ../../../submodules/TIMER/submodules/LIB/hardware/include  ../../../submodules/TIMER/submodules/INTERCON/hardware/include  BOOTROM_ADDR_W=12 SRAM_ADDR_W=14 FIRM_ADDR_W=14 CACHE_ADDR_W=24 INIT_MEM N_SLAVES=2 E=31  P=31 B=30 BAUD=10000000 FREQ=100000000 UART=0 TIMER=1  DATA_W=32 ../../../submodules/CPU/hardware/src/picorv32.v ../../../submodules/CPU/hardware/src/iob_picorv32.v ../../../submodules/CACHE/submodules/iob-interconnect/hardware/src/merge.v ../../../submodules/CACHE/submodules/iob-interconnect/hardware/src/split.v ../../../hardware/src/boot_ctr.v ../../../submodules/CACHE/submodules/iob-mem/sp_rom/sp_rom.v  ../../../hardware/src/int_mem.v ../../../hardware/src/sram.v ../../../submodules/CACHE/submodules/iob-mem/tdp_ram/iob_tdp_ram.v system.v ../../../submodules/UART/hardware/src/iob_uart.v ../../../submodules/TIMER/hardware/src/iob_timer.v ../../../submodules/TIMER/hardware/src/timer.v ./verilog/top_system.v
+# Log file: /home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/vivado.log
+# Journal file: 
+#-----------------------------------------------------------
+source synth_system.tcl
+# set TOP top_system
+# set PART xc7a35tcpg236-1
+# set INCLUDE [lindex $argv 0]
+# set DEFINE [lindex $argv 1]
+# set VSRC [lindex $argv 2]
+# set USE_DDR [string last "USE_DDR" $DEFINE]
+# foreach file [split $VSRC \ ] {
+#     if {$file != ""} {
+#         read_verilog -sv $file
+#     }
+# }
+# set_property part $PART [current_project]
+# if { $USE_DDR < 0 } {
+#     read_verilog verilog/clock_wizard.v
+# } else {
+# 
+#     read_xdc ./ddr.xdc
+# 
+# 
+#     if { ![file isdirectory "./ip"]} {
+#         file mkdir ./ip
+#     }
+# 
+#     #async interconnect MIG<->Cache
+#     if { [file isdirectory "./ip/axi_interconnect_0"] } {
+#         read_ip ./ip/axi_interconnect_0/axi_interconnect_0.xci
+#         report_property [get_files ./ip/axi_interconnect_0/axi_interconnect_0.xci]
+#     } else {
+# 
+#         create_ip -name axi_interconnect -vendor xilinx.com -library ip -version 1.7 -module_name axi_interconnect_0 -dir ./ip -force
+# 
+#         set_property -dict \
+#             [list \
+#                  CONFIG.NUM_SLAVE_PORTS {1}\
+#                  CONFIG.AXI_ADDR_WIDTH {30}\
+#                  CONFIG.ACLK_PERIOD {5000} \
+#                  CONFIG.INTERCONNECT_DATA_WIDTH {32}\
+#                  CONFIG.M00_AXI_IS_ACLK_ASYNC {1}\
+#                  CONFIG.M00_AXI_WRITE_FIFO_DEPTH {32}\
+#                  CONFIG.M00_AXI_READ_FIFO_DEPTH {32}\
+#                  CONFIG.S00_AXI_IS_ACLK_ASYNC {1}\
+#                  CONFIG.S00_AXI_READ_FIFO_DEPTH {32}\
+#                  CONFIG.S00_AXI_WRITE_FIFO_DEPTH {32}] [get_ips axi_interconnect_0]
+# 
+#         generate_target all [get_files ./ip/axi_interconnect_0/axi_interconnect_0.xci]
+# 
+#         report_property [get_ips axi_interconnect_0]
+#         report_property [get_files ./ip/axi_interconnect_0/axi_interconnect_0.xci]
+#         exec sed -i s/100/5/g ip/axi_interconnect_0/axi_interconnect_0_ooc.xdc
+#         synth_ip [get_files ./ip/axi_interconnect_0/axi_interconnect_0.xci]
+# 
+#     }
+#     
+#     if { [file isdirectory "./ip/ddr4_0"] } {
+# 	read_ip ./ip/ddr4_0/ddr4_0.xci
+#         report_property [get_files ./ip/ddr4_0/ddr4_0.xci]
+#     } else {
+# 
+#         create_ip -name ddr4 -vendor xilinx.com -library ip -version 2.2 -module_name ddr4_0 -dir ./ip -force
+#         
+#         set_property -dict \
+#         [list \
+#              CONFIG.C0.DDR4_TimePeriod {1250} \
+#              CONFIG.C0.DDR4_InputClockPeriod {4000} \
+#              CONFIG.C0.DDR4_CLKOUT0_DIVIDE {5} \
+#              CONFIG.C0.DDR4_MemoryPart {EDY4016AABG-DR-F} \
+#              CONFIG.C0.DDR4_DataWidth {32} \
+#              CONFIG.C0.DDR4_AxiSelection {true} \
+#              CONFIG.C0.DDR4_CasLatency {11} \
+#              CONFIG.C0.DDR4_CasWriteLatency {11} \
+#              CONFIG.C0.DDR4_AxiDataWidth {32} \
+#              CONFIG.C0.DDR4_AxiAddressWidth {30} \
+#              CONFIG.ADDN_UI_CLKOUT1_FREQ_HZ {100} \
+#              CONFIG.C0.BANK_GROUP_WIDTH {1}] [get_ips ddr4_0]
+# 	
+#         generate_target all [get_files ./ip/ddr4_0/ddr4_0.xci]
+# 
+#         report_property [get_ips ddr4_0]
+#         report_property [get_files ./ip/ddr4_0/ddr4_0.xci]
+# 
+#         synth_ip [get_files ./ip/ddr4_0/ddr4_0.xci]
+#     }
+# 
+# }
+# read_xdc ./synth_system.xdc
+# synth_design -include_dirs $INCLUDE -verilog_define $DEFINE -part $PART -top $TOP
+Command: synth_design -include_dirs {../../../submodules/CACHE/submodules/iob-interconnect/hardware/include . ../../../hardware/include  ../../../submodules/UART/hardware/include  ../../../submodules/TIMER/hardware/include  ../../../submodules/TIMER/submodules/LIB/hardware/include  ../../../submodules/TIMER/submodules/INTERCON/hardware/include} -verilog_define {BOOTROM_ADDR_W=12 SRAM_ADDR_W=14 FIRM_ADDR_W=14 CACHE_ADDR_W=24 INIT_MEM N_SLAVES=2 E=31  P=31 B=30 BAUD=10000000 FREQ=100000000 UART=0 TIMER=1  DATA_W=32} -part xc7a35tcpg236-1 -top top_system
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Device 21-403] Loading part xc7a35tcpg236-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 3876
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:07 . Memory (MB): peak = 2080.707 ; gain = 0.000 ; free physical = 123 ; free virtual = 2761
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'top_system' [/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/verilog/top_system.v:4]
+INFO: [Synth 8-6157] synthesizing module 'clock_wizard' [/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/verilog/clock_wizard.v:67]
+	Parameter OUTPUT_PER bound to: 10 - type: integer 
+	Parameter INPUT_PER bound to: 4 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'IBUFDS' [/tools/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:32992]
+	Parameter CAPACITANCE bound to: DONT_CARE - type: string 
+	Parameter DIFF_TERM bound to: FALSE - type: string 
+	Parameter DQS_BIAS bound to: FALSE - type: string 
+	Parameter IBUF_DELAY_VALUE bound to: 0 - type: string 
+	Parameter IBUF_LOW_PWR bound to: TRUE - type: string 
+	Parameter IFD_DELAY_VALUE bound to: AUTO - type: string 
+	Parameter IOSTANDARD bound to: DEFAULT - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'IBUFDS' (1#1) [/tools/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:32992]
+INFO: [Synth 8-6157] synthesizing module 'PLLE3_ADV' [/tools/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:61653]
+	Parameter CLKFBOUT_MULT bound to: 4 - type: integer 
+	Parameter CLKFBOUT_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKIN_PERIOD bound to: 4.000000 - type: double 
+	Parameter CLKOUT0_DIVIDE bound to: 10 - type: integer 
+	Parameter CLKOUT0_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT0_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKOUT1_DIVIDE bound to: 1 - type: integer 
+	Parameter CLKOUT1_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT1_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKOUTPHY_MODE bound to: VCO_2X - type: string 
+	Parameter COMPENSATION bound to: AUTO - type: string 
+	Parameter DIVCLK_DIVIDE bound to: 1 - type: integer 
+	Parameter IS_CLKFBIN_INVERTED bound to: 1'b0 
+	Parameter IS_CLKIN_INVERTED bound to: 1'b0 
+	Parameter IS_PWRDWN_INVERTED bound to: 1'b0 
+	Parameter IS_RST_INVERTED bound to: 1'b0 
+	Parameter REF_JITTER bound to: 0.010000 - type: double 
+	Parameter STARTUP_WAIT bound to: FALSE - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'PLLE3_ADV' (2#1) [/tools/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:61653]
+INFO: [Synth 8-6157] synthesizing module 'BUFG' [/tools/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:1083]
+INFO: [Synth 8-6155] done synthesizing module 'BUFG' (3#1) [/tools/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:1083]
+INFO: [Synth 8-6155] done synthesizing module 'clock_wizard' (4#1) [/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/verilog/clock_wizard.v:67]
+INFO: [Synth 8-6157] synthesizing module 'system' [/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/system.v:11]
+	Parameter ADDR_W bound to: 32 - type: integer 
+	Parameter DATA_W bound to: 32 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'iob_picorv32' [/home/miguel/Desktop/ECom/iob-soc/submodules/CPU/hardware/src/iob_picorv32.v:28]
+	Parameter ADDR_W bound to: 32 - type: integer 
+	Parameter DATA_W bound to: 32 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'picorv32' [/home/miguel/Desktop/ECom/iob-soc/submodules/CPU/hardware/src/picorv32.v:57]
+	Parameter ENABLE_COUNTERS bound to: 1'b1 
+	Parameter ENABLE_COUNTERS64 bound to: 1'b1 
+	Parameter ENABLE_REGS_16_31 bound to: 1'b1 
+	Parameter ENABLE_REGS_DUALPORT bound to: 1'b1 
+	Parameter LATCHED_MEM_RDATA bound to: 1'b0 
+	Parameter TWO_STAGE_SHIFT bound to: 1'b1 
+	Parameter BARREL_SHIFTER bound to: 1'b1 
+	Parameter TWO_CYCLE_COMPARE bound to: 1'b0 
+	Parameter TWO_CYCLE_ALU bound to: 1'b0 
+	Parameter COMPRESSED_ISA bound to: 1'b0 
+	Parameter CATCH_MISALIGN bound to: 1'b1 
+	Parameter CATCH_ILLINSN bound to: 1'b1 
+	Parameter ENABLE_PCPI bound to: 1'b0 
+	Parameter ENABLE_MUL bound to: 1'b0 
+	Parameter ENABLE_FAST_MUL bound to: 1'b1 
+	Parameter ENABLE_DIV bound to: 1'b1 
+	Parameter ENABLE_IRQ bound to: 1'b0 
+	Parameter ENABLE_IRQ_QREGS bound to: 1'b1 
+	Parameter ENABLE_IRQ_TIMER bound to: 1'b1 
+	Parameter ENABLE_TRACE bound to: 1'b0 
+	Parameter REGS_INIT_ZERO bound to: 1'b0 
+	Parameter MASKED_IRQ bound to: 0 - type: integer 
+	Parameter LATCHED_IRQ bound to: -1 - type: integer 
+	Parameter PROGADDR_RESET bound to: 0 - type: integer 
+	Parameter PROGADDR_IRQ bound to: 16 - type: integer 
+	Parameter STACKADDR bound to: -1 - type: integer 
+	Parameter irq_timer bound to: 0 - type: integer 
+	Parameter irq_ebreak bound to: 1 - type: integer 
+	Parameter irq_buserror bound to: 2 - type: integer 
+	Parameter irqregs_offset bound to: 32 - type: integer 
+	Parameter regfile_size bound to: 32 - type: integer 
+	Parameter regindex_bits bound to: 5 - type: integer 
+	Parameter WITH_PCPI bound to: 1'b1 
+	Parameter TRACE_BRANCH bound to: 36'b000100000000000000000000000000000000 
+	Parameter TRACE_ADDR bound to: 36'b001000000000000000000000000000000000 
+	Parameter TRACE_IRQ bound to: 36'b100000000000000000000000000000000000 
+	Parameter cpu_state_trap bound to: 8'b10000000 
+	Parameter cpu_state_fetch bound to: 8'b01000000 
+	Parameter cpu_state_ld_rs1 bound to: 8'b00100000 
+	Parameter cpu_state_ld_rs2 bound to: 8'b00010000 
+	Parameter cpu_state_exec bound to: 8'b00001000 
+	Parameter cpu_state_shift bound to: 8'b00000100 
+	Parameter cpu_state_stmem bound to: 8'b00000010 
+	Parameter cpu_state_ldmem bound to: 8'b00000001 
+INFO: [Synth 8-6157] synthesizing module 'picorv32_pcpi_fast_mul' [/home/miguel/Desktop/ECom/iob-soc/submodules/CPU/hardware/src/picorv32.v:2271]
+	Parameter EXTRA_MUL_FFS bound to: 0 - type: integer 
+	Parameter EXTRA_INSN_FFS bound to: 0 - type: integer 
+	Parameter MUL_CLKGATE bound to: 0 - type: integer 
+INFO: [Synth 8-155] case statement is not full and has no default [/home/miguel/Desktop/ECom/iob-soc/submodules/CPU/hardware/src/picorv32.v:2308]
+INFO: [Synth 8-6155] done synthesizing module 'picorv32_pcpi_fast_mul' (5#1) [/home/miguel/Desktop/ECom/iob-soc/submodules/CPU/hardware/src/picorv32.v:2271]
+INFO: [Synth 8-6157] synthesizing module 'picorv32_pcpi_div' [/home/miguel/Desktop/ECom/iob-soc/submodules/CPU/hardware/src/picorv32.v:2373]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/miguel/Desktop/ECom/iob-soc/submodules/CPU/hardware/src/picorv32.v:2398]
+INFO: [Synth 8-6155] done synthesizing module 'picorv32_pcpi_div' (6#1) [/home/miguel/Desktop/ECom/iob-soc/submodules/CPU/hardware/src/picorv32.v:2373]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/miguel/Desktop/ECom/iob-soc/submodules/CPU/hardware/src/picorv32.v:386]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/miguel/Desktop/ECom/iob-soc/submodules/CPU/hardware/src/picorv32.v:1496]
+INFO: [Synth 8-6155] done synthesizing module 'picorv32' (7#1) [/home/miguel/Desktop/ECom/iob-soc/submodules/CPU/hardware/src/picorv32.v:57]
+WARNING: [Synth 8-7071] port 'mem_la_read' of module 'picorv32' is unconnected for instance 'picorv32_core' [/home/miguel/Desktop/ECom/iob-soc/submodules/CPU/hardware/src/iob_picorv32.v:88]
+WARNING: [Synth 8-7071] port 'mem_la_write' of module 'picorv32' is unconnected for instance 'picorv32_core' [/home/miguel/Desktop/ECom/iob-soc/submodules/CPU/hardware/src/iob_picorv32.v:88]
+WARNING: [Synth 8-7071] port 'mem_la_addr' of module 'picorv32' is unconnected for instance 'picorv32_core' [/home/miguel/Desktop/ECom/iob-soc/submodules/CPU/hardware/src/iob_picorv32.v:88]
+WARNING: [Synth 8-7071] port 'mem_la_wdata' of module 'picorv32' is unconnected for instance 'picorv32_core' [/home/miguel/Desktop/ECom/iob-soc/submodules/CPU/hardware/src/iob_picorv32.v:88]
+WARNING: [Synth 8-7071] port 'mem_la_wstrb' of module 'picorv32' is unconnected for instance 'picorv32_core' [/home/miguel/Desktop/ECom/iob-soc/submodules/CPU/hardware/src/iob_picorv32.v:88]
+WARNING: [Synth 8-7023] instance 'picorv32_core' of module 'picorv32' has 27 connections declared, but only 22 given [/home/miguel/Desktop/ECom/iob-soc/submodules/CPU/hardware/src/iob_picorv32.v:88]
+INFO: [Synth 8-6155] done synthesizing module 'iob_picorv32' (8#1) [/home/miguel/Desktop/ECom/iob-soc/submodules/CPU/hardware/src/iob_picorv32.v:28]
+INFO: [Synth 8-6157] synthesizing module 'split' [/home/miguel/Desktop/ECom/iob-soc/submodules/CACHE/submodules/iob-interconnect/hardware/src/split.v:4]
+	Parameter DATA_W bound to: 32 - type: integer 
+	Parameter ADDR_W bound to: 32 - type: integer 
+	Parameter N_SLAVES bound to: 1 - type: integer 
+	Parameter P_SLAVES bound to: 67 - type: integer 
+	Parameter Nb bound to: 1 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'split' (9#1) [/home/miguel/Desktop/ECom/iob-soc/submodules/CACHE/submodules/iob-interconnect/hardware/src/split.v:4]
+INFO: [Synth 8-6157] synthesizing module 'split__parameterized0' [/home/miguel/Desktop/ECom/iob-soc/submodules/CACHE/submodules/iob-interconnect/hardware/src/split.v:4]
+	Parameter DATA_W bound to: 32 - type: integer 
+	Parameter ADDR_W bound to: 32 - type: integer 
+	Parameter N_SLAVES bound to: 2 - type: integer 
+	Parameter P_SLAVES bound to: 67 - type: integer 
+	Parameter Nb bound to: 1 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'split__parameterized0' (9#1) [/home/miguel/Desktop/ECom/iob-soc/submodules/CACHE/submodules/iob-interconnect/hardware/src/split.v:4]
+INFO: [Synth 8-6157] synthesizing module 'split__parameterized1' [/home/miguel/Desktop/ECom/iob-soc/submodules/CACHE/submodules/iob-interconnect/hardware/src/split.v:4]
+	Parameter DATA_W bound to: 32 - type: integer 
+	Parameter ADDR_W bound to: 32 - type: integer 
+	Parameter N_SLAVES bound to: 2 - type: integer 
+	Parameter P_SLAVES bound to: 66 - type: integer 
+	Parameter Nb bound to: 1 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'split__parameterized1' (9#1) [/home/miguel/Desktop/ECom/iob-soc/submodules/CACHE/submodules/iob-interconnect/hardware/src/split.v:4]
+INFO: [Synth 8-6157] synthesizing module 'int_mem' [/home/miguel/Desktop/ECom/iob-soc/hardware/src/int_mem.v:5]
+	Parameter ADDR_W bound to: 32 - type: integer 
+	Parameter DATA_W bound to: 32 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'boot_ctr' [/home/miguel/Desktop/ECom/iob-soc/hardware/src/boot_ctr.v:5]
+INFO: [Synth 8-6157] synthesizing module 'sp_rom' [/home/miguel/Desktop/ECom/iob-soc/submodules/CACHE/submodules/iob-mem/sp_rom/sp_rom.v:3]
+	Parameter DATA_W bound to: 32 - type: integer 
+	Parameter ADDR_W bound to: 10 - type: integer 
+	Parameter FILE bound to: boot.hex - type: string 
+	Parameter mem_init_file_int bound to: boot.hex - type: string 
+CRITICAL WARNING: [Synth 8-4445] could not open $readmem data file 'boot.hex'; please make sure the file is added to project and has read permission, ignoring [/home/miguel/Desktop/ECom/iob-soc/submodules/CACHE/submodules/iob-mem/sp_rom/sp_rom.v:23]
+
+Warning: Trying to implement RAM in registers. Block RAM or DRAM implementation is not possible for one or more of the following reasons :
+	1: Unable to determine number of words or word size in RAM. 
+	2: No valid read/write found for RAM. 
+RAM dissolved into registers
+INFO: [Synth 8-6155] done synthesizing module 'sp_rom' (10#1) [/home/miguel/Desktop/ECom/iob-soc/submodules/CACHE/submodules/iob-mem/sp_rom/sp_rom.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'boot_ctr' (11#1) [/home/miguel/Desktop/ECom/iob-soc/hardware/src/boot_ctr.v:5]
+INFO: [Synth 8-6157] synthesizing module 'merge' [/home/miguel/Desktop/ECom/iob-soc/submodules/CACHE/submodules/iob-interconnect/hardware/src/merge.v:5]
+	Parameter N_MASTERS bound to: 2 - type: integer 
+	Parameter DATA_W bound to: 32 - type: integer 
+	Parameter ADDR_W bound to: 32 - type: integer 
+	Parameter Nb bound to: 1 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'merge' (12#1) [/home/miguel/Desktop/ECom/iob-soc/submodules/CACHE/submodules/iob-interconnect/hardware/src/merge.v:5]
+INFO: [Synth 8-6157] synthesizing module 'sram' [/home/miguel/Desktop/ECom/iob-soc/hardware/src/sram.v:4]
+	Parameter FILE bound to: firmware - type: string 
+	Parameter file_suffix bound to: 858927408 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'iob_tdp_ram' [/home/miguel/Desktop/ECom/iob-soc/submodules/CACHE/submodules/iob-mem/tdp_ram/iob_tdp_ram.v:3]
+	Parameter MEM_INIT_FILE bound to: 112'b0110011001101001011100100110110101110111011000010111001001100101010111110011000000101110011010000110010101111000 
+	Parameter DATA_W bound to: 8 - type: integer 
+	Parameter ADDR_W bound to: 12 - type: integer 
+	Parameter mem_init_file_int bound to: 112'b0110011001101001011100100110110101110111011000010111001001100101010111110011000000101110011010000110010101111000 
+INFO: [Synth 8-3876] $readmem data file 'firmware_0.hex' is read successfully [/home/miguel/Desktop/ECom/iob-soc/submodules/CACHE/submodules/iob-mem/tdp_ram/iob_tdp_ram.v:35]
+INFO: [Synth 8-6155] done synthesizing module 'iob_tdp_ram' (13#1) [/home/miguel/Desktop/ECom/iob-soc/submodules/CACHE/submodules/iob-mem/tdp_ram/iob_tdp_ram.v:3]
+INFO: [Synth 8-6157] synthesizing module 'iob_tdp_ram__parameterized0' [/home/miguel/Desktop/ECom/iob-soc/submodules/CACHE/submodules/iob-mem/tdp_ram/iob_tdp_ram.v:3]
+	Parameter MEM_INIT_FILE bound to: 112'b0110011001101001011100100110110101110111011000010111001001100101010111110011000100101110011010000110010101111000 
+	Parameter DATA_W bound to: 8 - type: integer 
+	Parameter ADDR_W bound to: 12 - type: integer 
+	Parameter mem_init_file_int bound to: 112'b0110011001101001011100100110110101110111011000010111001001100101010111110011000100101110011010000110010101111000 
+INFO: [Synth 8-3876] $readmem data file 'firmware_1.hex' is read successfully [/home/miguel/Desktop/ECom/iob-soc/submodules/CACHE/submodules/iob-mem/tdp_ram/iob_tdp_ram.v:35]
+INFO: [Synth 8-6155] done synthesizing module 'iob_tdp_ram__parameterized0' (13#1) [/home/miguel/Desktop/ECom/iob-soc/submodules/CACHE/submodules/iob-mem/tdp_ram/iob_tdp_ram.v:3]
+INFO: [Synth 8-6157] synthesizing module 'iob_tdp_ram__parameterized1' [/home/miguel/Desktop/ECom/iob-soc/submodules/CACHE/submodules/iob-mem/tdp_ram/iob_tdp_ram.v:3]
+	Parameter MEM_INIT_FILE bound to: 112'b0110011001101001011100100110110101110111011000010111001001100101010111110011001000101110011010000110010101111000 
+	Parameter DATA_W bound to: 8 - type: integer 
+	Parameter ADDR_W bound to: 12 - type: integer 
+	Parameter mem_init_file_int bound to: 112'b0110011001101001011100100110110101110111011000010111001001100101010111110011001000101110011010000110010101111000 
+INFO: [Synth 8-3876] $readmem data file 'firmware_2.hex' is read successfully [/home/miguel/Desktop/ECom/iob-soc/submodules/CACHE/submodules/iob-mem/tdp_ram/iob_tdp_ram.v:35]
+INFO: [Synth 8-6155] done synthesizing module 'iob_tdp_ram__parameterized1' (13#1) [/home/miguel/Desktop/ECom/iob-soc/submodules/CACHE/submodules/iob-mem/tdp_ram/iob_tdp_ram.v:3]
+INFO: [Synth 8-6157] synthesizing module 'iob_tdp_ram__parameterized2' [/home/miguel/Desktop/ECom/iob-soc/submodules/CACHE/submodules/iob-mem/tdp_ram/iob_tdp_ram.v:3]
+	Parameter MEM_INIT_FILE bound to: 112'b0110011001101001011100100110110101110111011000010111001001100101010111110011001100101110011010000110010101111000 
+	Parameter DATA_W bound to: 8 - type: integer 
+	Parameter ADDR_W bound to: 12 - type: integer 
+	Parameter mem_init_file_int bound to: 112'b0110011001101001011100100110110101110111011000010111001001100101010111110011001100101110011010000110010101111000 
+INFO: [Synth 8-3876] $readmem data file 'firmware_3.hex' is read successfully [/home/miguel/Desktop/ECom/iob-soc/submodules/CACHE/submodules/iob-mem/tdp_ram/iob_tdp_ram.v:35]
+INFO: [Synth 8-6155] done synthesizing module 'iob_tdp_ram__parameterized2' (13#1) [/home/miguel/Desktop/ECom/iob-soc/submodules/CACHE/submodules/iob-mem/tdp_ram/iob_tdp_ram.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'sram' (14#1) [/home/miguel/Desktop/ECom/iob-soc/hardware/src/sram.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'int_mem' (15#1) [/home/miguel/Desktop/ECom/iob-soc/hardware/src/int_mem.v:5]
+INFO: [Synth 8-6157] synthesizing module 'iob_uart' [/home/miguel/Desktop/ECom/iob-soc/submodules/UART/hardware/src/iob_uart.v:4]
+	Parameter DATA_W bound to: 32 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'iob_uart' (16#1) [/home/miguel/Desktop/ECom/iob-soc/submodules/UART/hardware/src/iob_uart.v:4]
+INFO: [Synth 8-6157] synthesizing module 'iob_timer' [/home/miguel/Desktop/ECom/iob-soc/submodules/TIMER/hardware/src/iob_timer.v:6]
+	Parameter ADDR_W bound to: 3 - type: integer 
+	Parameter DATA_W bound to: 32 - type: integer 
+	Parameter WDATA_W bound to: 1 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'timer_core' [/home/miguel/Desktop/ECom/iob-soc/submodules/TIMER/hardware/src/timer.v:4]
+	Parameter DATA_W bound to: 32 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'timer_core' (17#1) [/home/miguel/Desktop/ECom/iob-soc/submodules/TIMER/hardware/src/timer.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'iob_timer' (18#1) [/home/miguel/Desktop/ECom/iob-soc/submodules/TIMER/hardware/src/iob_timer.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'system' (19#1) [/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/system.v:11]
+INFO: [Synth 8-6155] done synthesizing module 'top_system' (20#1) [/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/verilog/top_system.v:4]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:09 . Memory (MB): peak = 2080.707 ; gain = 0.000 ; free physical = 760 ; free virtual = 3206
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 2080.707 ; gain = 0.000 ; free physical = 750 ; free virtual = 3219
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 2080.707 ; gain = 0.000 ; free physical = 750 ; free virtual = 3219
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.06 ; elapsed = 00:00:00.07 . Memory (MB): peak = 2080.707 ; gain = 0.000 ; free physical = 739 ; free virtual = 3208
+CRITICAL WARNING: [Netlist 29-180] Cell 'PLLE3_ADV' is not a supported primitive for artix7 part: xc7a35tcpg236-1.  Instance 'clk_250_to_100_MHz/plle3_adv_inst' will be treated as a black box, not an architecture primitive [/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/verilog/clock_wizard.v:133]
+Resolution: Modify instantiation of primitive to match Xilinx primitive. Please review the guidelines in the Design Methodology Guide UG949 to replace this primitive with a supported primitive.
+INFO: [Netlist 29-17] Analyzing 1 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/synth_system.xdc]
+CRITICAL WARNING: [Vivado 12-4470] I/O Standard 'DIFF_SSTL12' is not supported on 'xc7a35tcpg236-1' part. [/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/synth_system.xdc:37]
+CRITICAL WARNING: [Vivado 12-4470] I/O Standard 'DIFF_SSTL12' is not supported on 'xc7a35tcpg236-1' part. [/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/synth_system.xdc:38]
+Finished Parsing XDC File [/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/synth_system.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/synth_system.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/top_system_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/top_system_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2160.379 ; gain = 0.000 ; free physical = 600 ; free virtual = 3093
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2160.379 ; gain = 0.000 ; free physical = 598 ; free virtual = 3094
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:15 ; elapsed = 00:00:19 . Memory (MB): peak = 2160.379 ; gain = 79.672 ; free physical = 713 ; free virtual = 3201
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a35tcpg236-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:15 ; elapsed = 00:00:19 . Memory (MB): peak = 2160.379 ; gain = 79.672 ; free physical = 713 ; free virtual = 3201
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:15 ; elapsed = 00:00:19 . Memory (MB): peak = 2160.379 ; gain = 79.672 ; free physical = 712 ; free virtual = 3201
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-327] inferring latch for variable 'mem_rdata_word_reg' [/home/miguel/Desktop/ECom/iob-soc/submodules/CPU/hardware/src/picorv32.v:390]
+WARNING: [Synth 8-327] inferring latch for variable 'mem_la_wdata_reg' [/home/miguel/Desktop/ECom/iob-soc/submodules/CPU/hardware/src/picorv32.v:388]
+WARNING: [Synth 8-327] inferring latch for variable 'mem_la_wstrb_reg' [/home/miguel/Desktop/ECom/iob-soc/submodules/CPU/hardware/src/picorv32.v:389]
+INFO: [Synth 8-3971] The signal "iob_tdp_ram:/ram_reg" was recognized as a true dual port RAM template.
+INFO: [Synth 8-3971] The signal "iob_tdp_ram__parameterized0:/ram_reg" was recognized as a true dual port RAM template.
+INFO: [Synth 8-3971] The signal "iob_tdp_ram__parameterized1:/ram_reg" was recognized as a true dual port RAM template.
+INFO: [Synth 8-3971] The signal "iob_tdp_ram__parameterized2:/ram_reg" was recognized as a true dual port RAM template.
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:17 ; elapsed = 00:00:21 . Memory (MB): peak = 2160.379 ; gain = 79.672 ; free physical = 688 ; free virtual = 3185
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   63 Bit       Adders := 1     
+	   2 Input   32 Bit       Adders := 7     
+	   3 Input   32 Bit       Adders := 1     
+	   2 Input   16 Bit       Adders := 2     
+	   2 Input   12 Bit       Adders := 1     
+	   2 Input   10 Bit       Adders := 1     
+	   2 Input    5 Bit       Adders := 2     
+	   2 Input    4 Bit       Adders := 3     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
++---Registers : 
+	               64 Bit    Registers := 2     
+	               63 Bit    Registers := 1     
+	               36 Bit    Registers := 1     
+	               33 Bit    Registers := 2     
+	               32 Bit    Registers := 17    
+	               16 Bit    Registers := 3     
+	               12 Bit    Registers := 1     
+	               10 Bit    Registers := 2     
+	                8 Bit    Registers := 11    
+	                5 Bit    Registers := 6     
+	                4 Bit    Registers := 6     
+	                3 Bit    Registers := 1     
+	                2 Bit    Registers := 7     
+	                1 Bit    Registers := 107   
++---Multipliers : 
+	              33x33  Multipliers := 1     
++---RAMs : 
+	              32K Bit	(4096 X 8 bit)          RAMs := 4     
+	             1024 Bit	(32 X 32 bit)          RAMs := 1     
++---Muxes : 
+	   2 Input   69 Bit        Muxes := 9     
+	   3 Input   69 Bit        Muxes := 1     
+	   2 Input   63 Bit        Muxes := 2     
+	   2 Input   33 Bit        Muxes := 12    
+	   2 Input   32 Bit        Muxes := 44    
+	   7 Input   32 Bit        Muxes := 1     
+	   9 Input   32 Bit        Muxes := 2     
+	   3 Input   32 Bit        Muxes := 2     
+	   4 Input   32 Bit        Muxes := 2     
+	   2 Input   16 Bit        Muxes := 6     
+	   2 Input   10 Bit        Muxes := 1     
+	   2 Input    8 Bit        Muxes := 3     
+	   9 Input    8 Bit        Muxes := 1     
+	   4 Input    8 Bit        Muxes := 1     
+	   2 Input    5 Bit        Muxes := 1     
+	   9 Input    5 Bit        Muxes := 2     
+	   2 Input    4 Bit        Muxes := 3     
+	   4 Input    4 Bit        Muxes := 2     
+	   5 Input    4 Bit        Muxes := 1     
+	   2 Input    3 Bit        Muxes := 2     
+	   6 Input    2 Bit        Muxes := 1     
+	   2 Input    2 Bit        Muxes := 2     
+	   9 Input    2 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 62    
+	   4 Input    1 Bit        Muxes := 18    
+	   9 Input    1 Bit        Muxes := 25    
+	   6 Input    1 Bit        Muxes := 5     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 90 (col length:60)
+BRAMs: 100 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+DSP Report: Generating DSP rd0, operation Mode is: A2*B2.
+DSP Report: register rs1_reg is absorbed into DSP rd0.
+DSP Report: register rd0 is absorbed into DSP rd0.
+DSP Report: operator rd0 is absorbed into DSP rd0.
+DSP Report: operator rd0 is absorbed into DSP rd0.
+DSP Report: Generating DSP rd_reg, operation Mode is: (PCIN>>17)+A2*B2.
+DSP Report: register rs2_reg is absorbed into DSP rd_reg.
+DSP Report: register rs1_reg is absorbed into DSP rd_reg.
+DSP Report: register rd_reg is absorbed into DSP rd_reg.
+DSP Report: operator rd0 is absorbed into DSP rd_reg.
+DSP Report: operator rd0 is absorbed into DSP rd_reg.
+DSP Report: Generating DSP rd0, operation Mode is: A2*B2.
+DSP Report: register rd0 is absorbed into DSP rd0.
+DSP Report: register rd0 is absorbed into DSP rd0.
+DSP Report: operator rd0 is absorbed into DSP rd0.
+DSP Report: operator rd0 is absorbed into DSP rd0.
+DSP Report: Generating DSP rd_reg, operation Mode is: (PCIN>>17)+A2*B2.
+DSP Report: register rs2_reg is absorbed into DSP rd_reg.
+DSP Report: register rd_reg is absorbed into DSP rd_reg.
+DSP Report: register rd_reg is absorbed into DSP rd_reg.
+DSP Report: operator rd0 is absorbed into DSP rd_reg.
+DSP Report: operator rd0 is absorbed into DSP rd_reg.
+INFO: [Synth 8-3971] The signal "top_system/system/int_mem0/int_sram/gen_main_mem_byte[0].main_mem_byte/ram_reg" was recognized as a true dual port RAM template.
+INFO: [Synth 8-3971] The signal "top_system/system/int_mem0/int_sram/gen_main_mem_byte[1].main_mem_byte/ram_reg" was recognized as a true dual port RAM template.
+INFO: [Synth 8-3971] The signal "top_system/system/int_mem0/int_sram/gen_main_mem_byte[2].main_mem_byte/ram_reg" was recognized as a true dual port RAM template.
+INFO: [Synth 8-3971] The signal "top_system/system/int_mem0/int_sram/gen_main_mem_byte[3].main_mem_byte/ram_reg" was recognized as a true dual port RAM template.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:34 ; elapsed = 00:00:39 . Memory (MB): peak = 2160.379 ; gain = 79.672 ; free physical = 657 ; free virtual = 3163
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Preliminary Mapping	Report (see note below)
++------------+---------------------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name | RTL Object                                                          | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++------------+---------------------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|top_system  | system/int_mem0/int_sram/gen_main_mem_byte[0].main_mem_byte/ram_reg | 4 K x 8(NO_CHANGE)     | W | R | 4 K x 8(NO_CHANGE)     | W | R | Port A and B     | 0      | 1      | 
+|top_system  | system/int_mem0/int_sram/gen_main_mem_byte[1].main_mem_byte/ram_reg | 4 K x 8(NO_CHANGE)     | W | R | 4 K x 8(NO_CHANGE)     | W | R | Port A and B     | 0      | 1      | 
+|top_system  | system/int_mem0/int_sram/gen_main_mem_byte[2].main_mem_byte/ram_reg | 4 K x 8(NO_CHANGE)     | W | R | 4 K x 8(NO_CHANGE)     | W | R | Port A and B     | 0      | 1      | 
+|top_system  | system/int_mem0/int_sram/gen_main_mem_byte[3].main_mem_byte/ram_reg | 4 K x 8(NO_CHANGE)     | W | R | 4 K x 8(NO_CHANGE)     | W | R | Port A and B     | 0      | 1      | 
++------------+---------------------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+Note: The table above is a preliminary report that shows the Block RAMs at the current stage of the synthesis flow. Some Block RAMs may be reimplemented as non Block RAM primitives later in the synthesis flow. Multiple instantiated Block RAMs are reported only once. 
+
+Distributed RAM: Preliminary Mapping	Report (see note below)
++---------------------------+-------------+-----------+----------------------+--------------+
+|Module Name                | RTL Object  | Inference | Size (Depth x Width) | Primitives   | 
++---------------------------+-------------+-----------+----------------------+--------------+
+|\system/cpu/picorv32_core  | cpuregs_reg | Implied   | 32 x 32              | RAM32M x 12	 | 
++---------------------------+-------------+-----------+----------------------+--------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+
+DSP: Preliminary Mapping	Report (see note below)
++-----------------------+------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name            | DSP Mapping      | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++-----------------------+------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|picorv32_pcpi_fast_mul | A2*B2            | 18     | 16     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fast_mul | (PCIN>>17)+A2*B2 | 16     | 16     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 1    | 
+|picorv32_pcpi_fast_mul | A2*B2            | 18     | 18     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fast_mul | (PCIN>>17)+A2*B2 | 18     | 16     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 1    | 
++-----------------------+------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:41 ; elapsed = 00:00:47 . Memory (MB): peak = 2160.379 ; gain = 79.672 ; free physical = 499 ; free virtual = 3019
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:41 ; elapsed = 00:00:48 . Memory (MB): peak = 2160.379 ; gain = 79.672 ; free physical = 497 ; free virtual = 3017
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Final Mapping	Report
++------------+---------------------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name | RTL Object                                                          | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++------------+---------------------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|top_system  | system/int_mem0/int_sram/gen_main_mem_byte[0].main_mem_byte/ram_reg | 4 K x 8(NO_CHANGE)     | W | R | 4 K x 8(NO_CHANGE)     | W | R | Port A and B     | 0      | 1      | 
+|top_system  | system/int_mem0/int_sram/gen_main_mem_byte[1].main_mem_byte/ram_reg | 4 K x 8(NO_CHANGE)     | W | R | 4 K x 8(NO_CHANGE)     | W | R | Port A and B     | 0      | 1      | 
+|top_system  | system/int_mem0/int_sram/gen_main_mem_byte[2].main_mem_byte/ram_reg | 4 K x 8(NO_CHANGE)     | W | R | 4 K x 8(NO_CHANGE)     | W | R | Port A and B     | 0      | 1      | 
+|top_system  | system/int_mem0/int_sram/gen_main_mem_byte[3].main_mem_byte/ram_reg | 4 K x 8(NO_CHANGE)     | W | R | 4 K x 8(NO_CHANGE)     | W | R | Port A and B     | 0      | 1      | 
++------------+---------------------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+
+Distributed RAM: Final Mapping	Report
++---------------------------+-------------+-----------+----------------------+--------------+
+|Module Name                | RTL Object  | Inference | Size (Depth x Width) | Primitives   | 
++---------------------------+-------------+-----------+----------------------+--------------+
+|\system/cpu/picorv32_core  | cpuregs_reg | Implied   | 32 x 32              | RAM32M x 12	 | 
++---------------------------+-------------+-----------+----------------------+--------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+INFO: [Synth 8-7052] The timing for the instance system/int_mem0/int_sram/gen_main_mem_byte[0].main_mem_byte/ram_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance system/int_mem0/int_sram/gen_main_mem_byte[0].main_mem_byte/ram_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance system/int_mem0/int_sram/gen_main_mem_byte[1].main_mem_byte/ram_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance system/int_mem0/int_sram/gen_main_mem_byte[1].main_mem_byte/ram_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance system/int_mem0/int_sram/gen_main_mem_byte[2].main_mem_byte/ram_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance system/int_mem0/int_sram/gen_main_mem_byte[2].main_mem_byte/ram_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance system/int_mem0/int_sram/gen_main_mem_byte[3].main_mem_byte/ram_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance system/int_mem0/int_sram/gen_main_mem_byte[3].main_mem_byte/ram_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:42 ; elapsed = 00:00:48 . Memory (MB): peak = 2195.426 ; gain = 114.719 ; free physical = 488 ; free virtual = 3009
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:46 ; elapsed = 00:00:52 . Memory (MB): peak = 2199.395 ; gain = 118.688 ; free physical = 492 ; free virtual = 3007
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:46 ; elapsed = 00:00:52 . Memory (MB): peak = 2199.395 ; gain = 118.688 ; free physical = 492 ; free virtual = 3007
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:46 ; elapsed = 00:00:52 . Memory (MB): peak = 2199.395 ; gain = 118.688 ; free physical = 485 ; free virtual = 3007
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:46 ; elapsed = 00:00:52 . Memory (MB): peak = 2199.395 ; gain = 118.688 ; free physical = 485 ; free virtual = 3007
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:46 ; elapsed = 00:00:52 . Memory (MB): peak = 2199.395 ; gain = 118.688 ; free physical = 485 ; free virtual = 3007
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:46 ; elapsed = 00:00:52 . Memory (MB): peak = 2199.395 ; gain = 118.688 ; free physical = 485 ; free virtual = 3007
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+----------+------+
+|      |Cell      |Count |
++------+----------+------+
+|1     |BUFG      |     2|
+|2     |CARRY4    |   177|
+|3     |DSP48E1   |     4|
+|7     |LUT1      |   154|
+|8     |LUT2      |   224|
+|9     |LUT3      |   272|
+|10    |LUT4      |   316|
+|11    |LUT5      |   359|
+|12    |LUT6      |   727|
+|13    |MUXF7     |     2|
+|14    |PLLE3_ADV |     1|
+|15    |RAM32M    |    12|
+|16    |RAMB36E1  |     4|
+|20    |FDCE      |   159|
+|21    |FDPE      |    30|
+|22    |FDRE      |   889|
+|23    |FDSE      |     7|
+|24    |LD        |    68|
+|25    |IBUF      |     2|
+|26    |IBUFDS    |     1|
+|27    |OBUF      |     2|
++------+----------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:46 ; elapsed = 00:00:52 . Memory (MB): peak = 2199.395 ; gain = 118.688 ; free physical = 485 ; free virtual = 3007
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 3 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:43 ; elapsed = 00:00:49 . Memory (MB): peak = 2199.395 ; gain = 39.016 ; free physical = 542 ; free virtual = 3064
+Synthesis Optimization Complete : Time (s): cpu = 00:00:46 ; elapsed = 00:00:53 . Memory (MB): peak = 2199.402 ; gain = 118.688 ; free physical = 542 ; free virtual = 3064
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:00.03 . Memory (MB): peak = 2199.402 ; gain = 0.000 ; free physical = 605 ; free virtual = 3135
+CRITICAL WARNING: [Netlist 29-180] Cell 'PLLE3_ADV' is not a supported primitive for artix7 part: xc7a35tcpg236-1.  Instance 'clk_250_to_100_MHz/plle3_adv_inst' will be treated as a black box, not an architecture primitive [/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/verilog/clock_wizard.v:133]
+Resolution: Modify instantiation of primitive to match Xilinx primitive. Please review the guidelines in the Design Methodology Guide UG949 to replace this primitive with a supported primitive.
+INFO: [Netlist 29-17] Analyzing 268 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Parsing XDC File [/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/synth_system.xdc]
+CRITICAL WARNING: [Common 17-69] Command failed: 'H22' is not a valid site or package pin name. [/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/synth_system.xdc:35]
+CRITICAL WARNING: [Common 17-69] Command failed: 'H23' is not a valid site or package pin name. [/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/synth_system.xdc:36]
+CRITICAL WARNING: [Vivado 12-4470] I/O Standard 'DIFF_SSTL12' is not supported on 'xc7a35tcpg236-1' part. [/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/synth_system.xdc:37]
+CRITICAL WARNING: [Vivado 12-4470] I/O Standard 'DIFF_SSTL12' is not supported on 'xc7a35tcpg236-1' part. [/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/synth_system.xdc:38]
+CRITICAL WARNING: [Common 17-69] Command failed: 'D20' is not a valid site or package pin name. [/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/synth_system.xdc:48]
+CRITICAL WARNING: [Common 17-69] Command failed: 'C19' is not a valid site or package pin name. [/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/synth_system.xdc:50]
+CRITICAL WARNING: [Common 17-69] Command failed: 'K20' is not a valid site or package pin name. [/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/synth_system.xdc:79]
+Finished Parsing XDC File [/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/synth_system.xdc]
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+CRITICAL WARNING: [Project 1-486] Could not resolve non-primitive black box cell 'PLLE3_ADV' instantiated as 'clk_250_to_100_MHz/plle3_adv_inst' [/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/verilog/clock_wizard.v:133]
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2199.402 ; gain = 0.000 ; free physical = 547 ; free virtual = 3082
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 80 instances were transformed.
+  LD => LDCE: 68 instances
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 12 instances
+
+INFO: [Common 17-83] Releasing license: Synthesis
+91 Infos, 9 Warnings, 13 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:58 ; elapsed = 00:01:01 . Memory (MB): peak = 2199.402 ; gain = 118.820 ; free physical = 707 ; free virtual = 3242
+# opt_design
+Command: opt_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a35t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a35t'
+Running DRC as a precondition to command opt_design
+
+Starting DRC Task
+INFO: [DRC 23-27] Running DRC with 4 threads
+ERROR: [DRC INBB-3] Black Box Instances: Cell 'clk_250_to_100_MHz/plle3_adv_inst' of type 'PLLE3_ADV' has undefined contents and is considered a black box.  The contents of this cell must be defined for opt_design to complete successfully.
+INFO: [Project 1-461] DRC finished with 1 Errors
+INFO: [Project 1-462] Please refer to the DRC report (report_drc) for more information.
+ERROR: [Vivado_Tcl 4-78] Error(s) found during DRC. Opt_design not run.
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:02 . Memory (MB): peak = 2249.223 ; gain = 49.820 ; free physical = 712 ; free virtual = 3239
+INFO: [Common 17-83] Releasing license: Implementation
+5 Infos, 0 Warnings, 0 Critical Warnings and 2 Errors encountered.
+opt_design failed
+ERROR: [Common 17-39] 'opt_design' failed due to earlier errors.
+
+    while executing
+"opt_design"
+    (file "synth_system.tcl" line 101)
+INFO: [Common 17-206] Exiting Vivado at Thu Oct 22 20:39:56 2020...

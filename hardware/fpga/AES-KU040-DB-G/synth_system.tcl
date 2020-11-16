@@ -4,7 +4,7 @@
 
 #select top module and FPGA decive
 set TOP top_system
-set PART xcku040-fbva676-1-c
+set PART xc7a35tcpg236-1
 
 set INCLUDE [lindex $argv 0]
 set DEFINE [lindex $argv 1]

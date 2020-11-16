@@ -1,0 +1,25 @@
+#-----------------------------------------------------------
+# Vivado v2020.1 (64-bit)
+# SW Build 2902540 on Wed May 27 19:54:35 MDT 2020
+# IP Build 2902112 on Wed May 27 22:43:36 MDT 2020
+# Start of session at: Thu Oct 22 20:23:45 2020
+# Process ID: 2791
+# Current directory: /home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3
+# Command line: vivado -nojournal -log vivado.log -mode batch -source synth_system.tcl -tclargs  ../../../submodules/CACHE/submodules/iob-interconnect/hardware/include . ../../../hardware/include  ../../../submodules/UART/hardware/include  ../../../submodules/TIMER/hardware/include  ../../../submodules/TIMER/submodules/LIB/hardware/include  ../../../submodules/TIMER/submodules/INTERCON/hardware/include  BOOTROM_ADDR_W=12 SRAM_ADDR_W=14 FIRM_ADDR_W=14 CACHE_ADDR_W=24 INIT_MEM N_SLAVES=2 E=31  P=31 B=30 BAUD=10000000 FREQ=100000000 UART=0 TIMER=1  DATA_W=32 ../../../submodules/CPU/hardware/src/picorv32.v ../../../submodules/CPU/hardware/src/iob_picorv32.v ../../../submodules/CACHE/submodules/iob-interconnect/hardware/src/merge.v ../../../submodules/CACHE/submodules/iob-interconnect/hardware/src/split.v ../../../hardware/src/boot_ctr.v ../../../submodules/CACHE/submodules/iob-mem/sp_rom/sp_rom.v  ../../../hardware/src/int_mem.v ../../../hardware/src/sram.v ../../../submodules/CACHE/submodules/iob-mem/tdp_ram/iob_tdp_ram.v system.v ../../../submodules/UART/hardware/src/iob_uart.v ../../../submodules/TIMER/hardware/src/iob_timer.v ../../../submodules/TIMER/hardware/src/timer.v ./verilog/top_system.v
+# Log file: /home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/vivado.log
+# Journal file: 
+#-----------------------------------------------------------
+source synth_system.tcl
+# set TOP top_system
+# set PART xc7a35tcpg236-1
+# set INCLUDE [lindex $argv 0]
+# set DEFINE [lindex $argv 1]
+# set VSRC [lindex $argv 2]
+# set USE_DDR [string last "USE_DDR" $DEFINE]
+# foreach file [split $VSRC \ ] {
+#     if {$file != ""} {
+#         read_verilog -sv $file
+#     }
+# }
+ERROR: [Common 17-69] Command failed: File '/home/miguel/Desktop/ECom/iob-soc/hardware/fpga/BASYS3/system.v' does not exist
+INFO: [Common 17-206] Exiting Vivado at Thu Oct 22 20:24:00 2020...
